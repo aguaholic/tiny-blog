@@ -9,7 +9,12 @@ const Article = () => {
   const filtered = postInfoToShow?.find(item => item.id === Number(id))
 
   return (
-    <div className='block'>
+    <>
+      <Link to='/'>
+        <button type='button' className='m-5 text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-md text-sm px-10 py-2.5 text-center mr-2 mb-2'>
+          Back
+        </button>
+      </Link>
       <div className='flex justify-center mt-10'>
         <div className='block w-1/2 p-6 bg-white border border-gray-200 rounded-lg shadow-md'>
           <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>{filtered?.title}</h5>
@@ -19,9 +24,8 @@ const Article = () => {
           </p>
           <p className='font-normal text-gray-700 dark:text-gray-400'>{filtered?.body}</p>
         </div>
-        <Link to='/'>back</Link>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getPosts } from '../app/postsSlice';
 import Chip from './Chip';
 import Posts from './Posts';
+import Spinner from './Spinner';
 
 interface Post {
   body: string,
@@ -43,8 +44,9 @@ const Home = () => {
   const matchedPosts = matched?.map(item => item);
 
   const title = <div className='flex justify-center m-5'><h5 className='mb-2 text-2xl font-bold tracking-tight capitalize'>{itext}</h5></div>
+
   if (isLoading) {
-    return <p>Loading...</p>
+    return <div className='flex justify-center mt-9'><Spinner /></div>
   }
 
   if (hasError) {
