@@ -22,7 +22,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getPosts());
-  }, []);
+  }, [dispatch]);
 
   const postInfoToShow = posts?.posts.map(post => post);
   const singlePost = postInfoToShow?.map(item => item);

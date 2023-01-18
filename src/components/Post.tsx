@@ -12,8 +12,8 @@ interface Post {
 interface PostProps {
   post: Post | undefined,
 }
-
 const Post = ({ post }: PostProps) => {
+  // @typescript-eslint/no-redeclare
   const chips = post?.tags.map((item: any) => <Chip key={item} text={item} />)
 
   return (
