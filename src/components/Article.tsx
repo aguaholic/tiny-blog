@@ -9,7 +9,7 @@ const Article = () => {
   const postInfoToShow = posts?.posts.map(post => post);
   const filtered = postInfoToShow?.find(item => item.id === Number(id));
 
-  const chips = filtered?.tags.map((item: any) => <Chip key={item} text={item} />);
+  const chips = filtered?.tags.map((item: string) => <Chip key={item} text={item} />);
 
   return (
     <>

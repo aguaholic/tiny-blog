@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Chip from './Chip';
 
-interface Post {
+export interface Post {
   title: string,
   id: number,
   reactions: number,
@@ -13,8 +13,7 @@ interface PostProps {
   post: Post | undefined,
 }
 const Post = ({ post }: PostProps) => {
-  // @typescript-eslint/no-redeclare
-  const chips = post?.tags.map((item: any) => <Chip key={item} text={item} />)
+  const chips = post?.tags.map((item: string) => <Chip key={item} text={item} />)
 
   return (
     <Link
