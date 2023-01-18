@@ -1,17 +1,23 @@
 import { Link, useParams } from 'react-router-dom';
 import { useAppSelector } from '../app/hooks';
+import Chip from './Chip';
 
 const Article = () => {
   const { posts } = useAppSelector(state => state.posts);
   const { id } = useParams();
 
   const postInfoToShow = posts?.posts.map(post => post);
-  const filtered = postInfoToShow?.find(item => item.id === Number(id))
+  const filtered = postInfoToShow?.find(item => item.id === Number(id));
+
+  const chips = filtered?.tags.map((item: any) => <Chip key={item} text={item} />);
 
   return (
     <>
       <Link to='/'>
-        <button type='button' className='m-5 text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-md text-sm px-10 py-2.5 text-center mr-2 mb-2'>
+        <button
+          type='button'
+          className='m-5 text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-md text-sm px-10 py-2.5 text-center mr-2 mb-2'
+        >
           Back
         </button>
       </Link>
@@ -23,6 +29,7 @@ const Article = () => {
             {filtered?.reactions}
           </p>
           <p className='font-normal text-gray-700 dark:text-gray-400'>{filtered?.body}</p>
+          <div className='flex flex-row gap-3 justify-center mt-2'>{chips}</div>
         </div>
       </div>
     </>

@@ -17,7 +17,7 @@ interface Post {
 const Home = () => {
   const dispatch = useAppDispatch();
   const { posts, isLoading, hasError } = useAppSelector(state => state.posts);
-  const [itext, setInnerText] = useState<string>('');
+  const [innertext, setInnerText] = useState<string>('all');
   const [matched, setMatched] = useState<Post | null>(null);
 
   useEffect(() => {
@@ -28,22 +28,35 @@ const Home = () => {
   const singlePost = postInfoToShow?.map(item => item);
 
   const tags = [
-    // 'all',
     'history', 'french', 'magical', 'mystery', 'classic',
   ];
 
   const handleMatch = (e: any) => {
     const innerText = e.target.innerText;
-    setInnerText(innerText)
-    const match = singlePost?.filter(post => post.tags.includes(innerText));
+    setInnerText(innerText);
 
+    if (innertext === 'all') {
+      const allPosts = singlePost?.map(item => item);
+      // @ts-ignore
+      setMatched(allPosts)
+    }
+
+    const match = singlePost?.filter(post => post.tags.includes(innerText));
     // @ts-ignore
     setMatched(match)
   }
+
   // @ts-ignore
   const matchedPosts = matched?.map(item => item);
+  const allPosts = singlePost?.map(item => item);
 
-  const title = <div className='flex justify-center m-5'><h5 className='mb-2 text-2xl font-bold tracking-tight capitalize'>{itext}</h5></div>
+  const title = (
+    <div className='flex justify-center m-5'>
+      <h5 className='mb-2 text-2xl font-bold tracking-tight capitalize'>
+        {innertext}
+      </h5>
+    </div>
+  );
 
   if (isLoading) {
     return <div className='flex justify-center mt-9'><Spinner /></div>
@@ -56,15 +69,10 @@ const Home = () => {
   return (
     <>
       <div className='flex flex-wrap gap-3 justify-center mt-8 mb-8'>
-        {tags.map(tag => <button key={tag} onClick={e => handleMatch(e)}>{<Chip text={tag} />}</button>)}
+        {tags.map(tag => <div key={tag} onClick={e => handleMatch(e)}>{<Chip genreChip text={tag} />}</div>)}
       </div>
       {title}
-      {matchedPosts && <Posts posts={matchedPosts} />}
-      {/* {(matchedPosts < 1) ?
-        <Posts posts={posts} />
-        :
-        <Posts posts={matchedPosts} />
-      } */}
+      {matchedPosts ? <Posts posts={matchedPosts} /> : <Posts posts={allPosts} />}
     </>
   )
 }
